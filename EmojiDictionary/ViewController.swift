@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var thecooltableview: UITableView!
     
-    var emojis = ["😀", "😎", "😣", "😭","👏","blah blah blah blah blah blah balh"]
+    var emojis : [Emoji] = []
     
   
     override func viewDidLoad() {
@@ -21,6 +21,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         thecooltableview.dataSource = self
         thecooltableview.delegate = self
+        
+        emojis = makeEmojiArray()
     }
 
     
@@ -30,10 +32,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(indexPath.row)
+    
         let cell = UITableViewCell()
         
-        cell.textLabel?.text = emojis[indexPath.row]
+        cell.textLabel?.text = emojis[indexPath.row].stringEmoji
         
         return cell
     }
@@ -46,9 +48,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            let defVC = segue.destination as! DefinitionViewController
-        
-        defVC.emoji = sender as! String
+        let defVC = segue.destination as! DefinitionViewController
+        defVC.emoji = sender as! Emoji
     }
     
     
@@ -57,6 +58,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
 
+    func makeEmojiArray() -> [Emoji] {
+        var emoji1 = Emoji()
+        emoji1.stringEmoji = "😀"
+        emoji1.definition = "smiley"
+        emoji1.category = "Faces"
+        emoji1.birthYear = 2011;
+        
+        var emoji2 = Emoji()
+        emoji2.stringEmoji = "😅"
+        emoji2.definition = "tear"
+        emoji2.category = "Faces"
+        emoji2.birthYear = 2012;
+    
+        return [emoji1, emoji2]
+    }
+    
+    
+    
+    
 // cool
 }
 
